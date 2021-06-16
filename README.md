@@ -1,2 +1,2 @@
-# Artistic-Protein-Surface-Visualisation
+# Artistic Protein Surface Visualisation
 
