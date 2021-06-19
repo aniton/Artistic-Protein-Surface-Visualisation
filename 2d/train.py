@@ -1,10 +1,17 @@
 from __future__ import print_function
 import sys, os, pdb
-sys.path.insert(0, 'src')
 import numpy as np, scipy.misc 
-from optimize import optimize
+import optimize
+import net
 from argparse import ArgumentParser
-from utils import save_img, get_img, exists, list_files
+import scipy.misc
+import tensorflow as tf
+from collections import defaultdict
+import time
+import json
+import subprocess
+import numpy
+import utils
 
 CONTENT_WEIGHT = 7.5e0
 STYLE_WEIGHT = 1e2
@@ -12,10 +19,10 @@ TV_WEIGHT = 2e2
 
 LEARNING_RATE = 1e-3
 NUM_EPOCHS = 2
-CHECKPOINT_DIR = 'runs'
+CHECKPOINT_DIR = './runs'
 CHECKPOINT_ITERATIONS = 2000
 VGG_PATH = 'data/imagenet-vgg-verydeep-19.mat'
-TRAIN_PATH = 'data/train2014'
+TRAIN_PATH = './train_pdb'
 BATCH_SIZE = 4
 DEVICE = '/gpu:0'
 FRAC_GPU = 1
@@ -125,7 +132,7 @@ def ffwd(data_in, paths_out, checkpoint_dir, device_t='/gpu:0', batch_size=4):
         img_placeholder = tf.compat.v1.placeholder(tf.float32, shape=batch_shape,
                                          name='img_placeholder')
 
-        preds = transform.net(img_placeholder)
+        preds = net.net(img_placeholder)
         saver = tf.compat.v1.train.Saver()
         if os.path.isdir(checkpoint_dir):
             ckpt = tf.train.get_checkpoint_state(checkpoint_dir)
@@ -164,9 +171,6 @@ def ffwd(data_in, paths_out, checkpoint_dir, device_t='/gpu:0', batch_size=4):
 
 
 
-
-
-
 def main():
     parser = build_parser()
     options = parser.parse_args()
@@ -193,7 +197,7 @@ def main():
         options.vgg_path
     ]
 
-    for preds, losses, i, epoch in optimize(*args, **kwargs):
+    for preds, losses, i, epoch in optimize.optimize(*args, **kwargs):
         style_loss, content_loss, tv_loss, loss = losses
 
         print('Epoch %d, Iteration: %d, Loss: %s' % (epoch, i, loss))
@@ -207,8 +211,7 @@ def main():
                                      options.checkpoint_dir)
 
     ckpt_dir = options.checkpoint_dir
-    cmd_text = 'python evaluate.py --checkpoint %s ...' % ckpt_dir
-    print("Training complete. For evaluation:\n    `%s`" % cmd_text)
+    print("Training complete")
 
 if __name__ == '__main__':
     main()
