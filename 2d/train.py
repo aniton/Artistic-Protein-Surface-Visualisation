@@ -9,6 +9,7 @@ import tensorflow as tf
 from collections import defaultdict
 import time
 import json
+from tqdm import tqdm
 import subprocess
 import numpy
 import utils
@@ -146,7 +147,7 @@ def ffwd(data_in, paths_out, checkpoint_dir, device_t='/gpu:0', batch_size=4):
                 curr_batch_in = data_in[pos:pos+batch_size]
                 X = np.zeros(batch_shape, dtype=np.float32)
                 for j, path_in in enumerate(curr_batch_in):
-                    img = get_img(path_in)
+                    img = utils.get_img(path_in)
                     assert img.shape == img_shape, \
                         'Images have different dimensions. ' +  \
                         'Resize images or use --allow-different-dimensions.'
@@ -202,7 +203,7 @@ def main():
         options.tv_weight,
     ]
 
-    for preds, losses, i, epoch in optimize.optimize(*args, **kwargs):
+    for preds, losses, i, epoch in tqdm(optimize.optimize(*args, **kwargs)):
         style_loss, content_loss, tv_loss, loss = losses
 
         print('Epoch %d, Iteration: %d, Loss: %s' % (epoch, i, loss))
