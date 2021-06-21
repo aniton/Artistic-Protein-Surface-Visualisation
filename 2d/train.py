@@ -30,6 +30,10 @@ FRAC_GPU = 1
 
 def build_parser():
     parser = ArgumentParser()
+    parser.add_argument('--run_path', type=str,
+                        dest='run_path',
+                        help='path to .mat weights',
+                        metavar='VGG_PATH', default='/content/imagenet-vgg-verydeep-19.mat')
     parser.add_argument('--checkpoint-dir', type=str,
                         dest='checkpoint_dir', help='dir to save checkpoint in',
                         metavar='CHECKPOINT_DIR', required=True)
@@ -89,14 +93,14 @@ def check_opts(opts):
     utils.exists(opts.checkpoint_dir, "checkpoint dir not found!")
     utils.exists(opts.style, "style path not found!")
     utils.exists(opts.train_path, "train path not found!")
+    utils.exists(opts.run_path, "Model weights not found!")
     if opts.test or opts.test_dir:
         utils.exists(opts.test, "test img not found!")
         utils.exists(opts.test_dir, "test directory not found!")
- #   utils.exists(opts.vgg_path, "vgg network data not found!")
     assert opts.epochs > 0
     assert opts.batch_size > 0
     assert opts.checkpoint_iterations > 0
- #   assert os.path.exists(opts.vgg_path)
+    assert os.path.exists(opts.run_path)
     assert opts.content_weight >= 0
     assert opts.style_weight >= 0
     assert opts.tv_weight >= 0
@@ -196,6 +200,7 @@ def main():
 
 
     args = [
+        options.run_path,
         content_targets,
         style_target,
         options.content_weight,
