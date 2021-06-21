@@ -14,6 +14,8 @@ class WithExternal(build_ext):
     def run(self):
         os.system(f"wget 'http://www.vlfeat.org/matconvnet/models/beta16/imagenet-vgg-verydeep-19.mat'")
         os.system(f"apt install imagemagick")
+        os.chdir('./3d')
+        os.system(f"ghclone 'https://github.com/hiroharu-kato/neural_renderer/tree/master/neural_renderer')
         build_ext.run(self)
 
 setup(

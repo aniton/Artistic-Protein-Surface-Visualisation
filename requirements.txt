@@ -1,1 +1,2 @@
 biotite
+git+git://github.com/HR/github-clone#egg=ghclone
