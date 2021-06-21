@@ -13,7 +13,7 @@ name = 'surface'
 class WithExternal(build_ext):
     def run(self):
         os.chdir(os.getenv("HOME"))
-        os.system(f'wget http://www.vlfeat.org/matconvnet/models/beta16/imagenet-vgg-verydeep-19.mat')
+        os.system(f"wget 'http://www.vlfeat.org/matconvnet/models/beta16/imagenet-vgg-verydeep-19.mat'")
         build_ext.run(self)
 
 setup(
