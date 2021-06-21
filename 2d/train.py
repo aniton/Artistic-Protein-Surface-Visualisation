@@ -2,7 +2,7 @@ from __future__ import print_function
 import sys, os, pdb
 import numpy as np, scipy.misc 
 import optimize
-import net
+import model
 from argparse import ArgumentParser
 import scipy.misc
 import tensorflow as tf
@@ -19,10 +19,10 @@ TV_WEIGHT = 2e2
 
 LEARNING_RATE = 1e-3
 NUM_EPOCHS = 2
-CHECKPOINT_DIR = './runs'
+CHECKPOINT_DIR = './checkpoints'
 CHECKPOINT_ITERATIONS = 2000
-VGG_PATH = 'data/imagenet-vgg-verydeep-19.mat'
-TRAIN_PATH = './train_pdb'
+
+TRAIN_PATH = '/content/train_pdb'
 BATCH_SIZE = 4
 DEVICE = '/gpu:0'
 FRAC_GPU = 1
@@ -62,11 +62,6 @@ def build_parser():
                         metavar='CHECKPOINT_ITERATIONS',
                         default=CHECKPOINT_ITERATIONS)
 
-    parser.add_argument('--vgg-path', type=str,
-                        dest='vgg_path',
-                        help='path to VGG19 network (default %(default)s)',
-                        metavar='VGG_PATH', default=VGG_PATH)
-
     parser.add_argument('--content-weight', type=float,
                         dest='content_weight',
                         help='content weight (default %(default)s)',
@@ -90,24 +85,24 @@ def build_parser():
     return parser
 
 def check_opts(opts):
-    exists(opts.checkpoint_dir, "checkpoint dir not found!")
-    exists(opts.style, "style path not found!")
-    exists(opts.train_path, "train path not found!")
+    utils.exists(opts.checkpoint_dir, "checkpoint dir not found!")
+    utils.exists(opts.style, "style path not found!")
+    utils.exists(opts.train_path, "train path not found!")
     if opts.test or opts.test_dir:
-        exists(opts.test, "test img not found!")
-        exists(opts.test_dir, "test directory not found!")
-    exists(opts.vgg_path, "vgg network data not found!")
+        utils.exists(opts.test, "test img not found!")
+        utils.exists(opts.test_dir, "test directory not found!")
+ #   utils.exists(opts.vgg_path, "vgg network data not found!")
     assert opts.epochs > 0
     assert opts.batch_size > 0
     assert opts.checkpoint_iterations > 0
-    assert os.path.exists(opts.vgg_path)
+ #   assert os.path.exists(opts.vgg_path)
     assert opts.content_weight >= 0
     assert opts.style_weight >= 0
     assert opts.tv_weight >= 0
     assert opts.learning_rate >= 0
 
 def _get_files(img_dir):
-    files = list_files(img_dir)
+    files = utils.list_files(img_dir)
     return [os.path.join(img_dir,x) for x in files]
 
 
@@ -132,7 +127,7 @@ def ffwd(data_in, paths_out, checkpoint_dir, device_t='/gpu:0', batch_size=4):
         img_placeholder = tf.compat.v1.placeholder(tf.float32, shape=batch_shape,
                                          name='img_placeholder')
 
-        preds = net.net(img_placeholder)
+        preds = model.net(img_placeholder)
         saver = tf.compat.v1.train.Saver()
         if os.path.isdir(checkpoint_dir):
             ckpt = tf.train.get_checkpoint_state(checkpoint_dir)
@@ -175,7 +170,7 @@ def main():
     parser = build_parser()
     options = parser.parse_args()
     check_opts(options)
-    style_target = get_img(options.style)
+    style_target = utils.get_img(options.style)
     content_targets = _get_files(options.train_path)
 
 
@@ -194,7 +189,6 @@ def main():
         options.content_weight,
         options.style_weight,
         options.tv_weight,
-        options.vgg_path
     ]
 
     for preds, losses, i, epoch in optimize.optimize(*args, **kwargs):

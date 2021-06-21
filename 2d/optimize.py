@@ -2,11 +2,11 @@ from __future__ import print_function
 import functools
 import pdb, time
 import tensorflow as tf, numpy as np, os
-import net
+import model
 from utils import get_img
 
-STYLE_LAYERS = ('relu1_1', 'relu2_1', 'relu3_1', 'relu4_1', 'relu5_1')
-CONTENT_LAYER = 'relu5_2'
+STYLE_LAYERS = ['block1_conv1', 'block2_conv1', 'block3_conv1', 'block4_conv1', 'block5_conv1']
+CONTENT_LAYER = ['block5_conv2']
 DEVICES = 'CUDA_VISIBLE_DEVICES'
 MEAN_PIXEL = np.array([ 123.68 ,  116.779,  103.939])
 
@@ -18,17 +18,22 @@ def preprocess(image):
 def unprocess(image):
     return image + MEAN_PIXEL
 
-def model(layer_name):
-   
+def vgg_model(layer_names):
+    # Retrieve the output layers corresponding to the content and style layers
     vgg_model = tf.keras.applications.VGG19(include_top=False, weights='imagenet')
     vgg_model.trainable = False
-    outputs = vgg_model.get_layer(layer_name).output 
+    outputs = [vgg_model.get_layer(name).output for name in layer_names]
     model=tf.keras.Model([vgg_model.input], outputs)
     return model
 
+def gram_matrix(input_tensor): # input_tensor is of shape ch, n_H, n_W
+    result = tf.linalg.einsum('bijc,bijd->bcd', input_tensor, input_tensor)
+    input_shape = tf.shape(input_tensor)
+    num_locations = tf.cast(input_shape[1]*input_shape[2], tf.float32) # Unrolls n_H and n_W
+    return result/(num_locations)
 
 def optimize(content_targets, style_target, content_weight, style_weight,
-             tv_weight, vgg_path, epochs=2, print_iterations=1000,
+             tv_weight, epochs=2, print_iterations=1000,
              batch_size=4, save_path='saver/fns.ckpt',
              learning_rate=1e-3, debug=False):
 
@@ -44,17 +49,21 @@ def optimize(content_targets, style_target, content_weight, style_weight,
     print(style_shape)
 
     # precompute style features
-    with tf.Graph().as_default(), tf.device('/cpu:0'), tf.compat.v1.Session() as sess:
+    with tf.Graph().as_default(), tf.device('/cpu:0'),  tf.compat.v1.Session() as sess:
         style_image = tf.compat.v1.placeholder(tf.float32, shape=style_shape, name='style_image')
         style_image_pre = preprocess(style_image)
-       # net = vgg.net(vgg_path, style_image_pre)
+        net = vgg_model(STYLE_LAYERS)
+        net = net(style_image_pre)
+  #      style_features = {STYLE_LAYERS[i]:gram_matrix(layer) for i, layer in enumerate(net)}
+   
         style_pre = np.array([style_target])
-        for layer in STYLE_LAYERS:
-            net = model(layer)		
-            features = model(style_image_pre).eval(feed_dict={style_image:style_pre})
+        for i, layer in enumerate(STYLE_LAYERS):
+
+            features = net[i].eval(feed_dict={style_image:style_pre})
             features = np.reshape(features, (-1, features.shape[3]))
             gram = np.matmul(features.T, features) / features.size
             style_features[layer] = gram
+
 
     with tf.Graph().as_default(), tf.compat.v1.Session() as sess:
         X_content = tf.compat.v1.placeholder(tf.float32, shape=batch_shape, name="X_content")
@@ -62,32 +71,39 @@ def optimize(content_targets, style_target, content_weight, style_weight,
 
         # precompute content features
         content_features = {}
-        content_net = model(CONTENT_LAYER)
-        content_features[CONTENT_LAYER] = content_net(X_pre)
+        content_net = vgg_model(CONTENT_LAYER)
+        content_features[str(CONTENT_LAYER)] = content_net(X_pre)
      #   content_net = vgg.net(vgg_path, X_pre)
       #  content_features[CONTENT_LAYER] = content_net[CONTENT_LAYER]
-        preds = net.net(X_content/255.0)
+        preds = model.net(X_content/255.0)
         preds_pre = preprocess(preds)
 
       #  net = vgg.net(vgg_path, preds_pre)
-        net = model(CONTENT_LAYER)
+   #     net = vgg_model(CONTENT_LAYER)
         
-        content_size = _tensor_size(content_features[CONTENT_LAYER])*batch_size
-        assert _tensor_size(content_features[CONTENT_LAYER]) == _tensor_size(net(preds_pre))
+        content_size = _tensor_size(content_features[str(CONTENT_LAYER)])*batch_size
+        assert _tensor_size(content_features[str(CONTENT_LAYER)]) == _tensor_size(content_net(preds_pre))
         content_loss = content_weight * (2 * tf.nn.l2_loss(
-            net(preds_pre) - content_features[CONTENT_LAYER]) / content_size
+            content_net(preds_pre) - content_features[str(CONTENT_LAYER)]) / content_size
         )
 
         style_losses = []
-        for style_layer in STYLE_LAYERS:
-            layer = net[style_layer]
+        style_net = vgg_model(STYLE_LAYERS)
+        style_net = style_net(preds_pre)
+        
+        for i, style_layer in enumerate(STYLE_LAYERS):
+            layer = style_net[i]
+
             bs, height, width, filters = map(lambda i:i,layer.get_shape())
             size = height * width * filters
             feats = tf.reshape(layer, (bs, height * width, filters))
             feats_T = tf.transpose(a=feats, perm=[0,2,1])
             grams = tf.matmul(feats_T, feats) / size
+          
             style_gram = style_features[style_layer]
-            style_losses.append(2 * tf.nn.l2_loss(grams - style_gram)/style_gram.size)
+            X = tf.cast(style_gram.shape[0],dtype=float)
+
+            style_losses.append(2 * tf.nn.l2_loss(grams - style_gram)/X)
 
         style_loss = style_weight * functools.reduce(tf.add, style_losses) / batch_size
 
