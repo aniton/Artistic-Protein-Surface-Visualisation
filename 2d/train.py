@@ -111,7 +111,7 @@ def ffwd(data_in, paths_out, checkpoint_dir, device_t='/gpu:0', batch_size=4):
     is_paths = type(data_in[0]) == str
     if is_paths:
         assert len(data_in) == len(paths_out)
-        img_shape = get_img(data_in[0]).shape
+        img_shape = utils.get_img(data_in[0]).shape
     else:
         assert data_in.size[0] == len(paths_out)
         img_shape = X[0].shape
@@ -163,6 +163,7 @@ def ffwd(data_in, paths_out, checkpoint_dir, device_t='/gpu:0', batch_size=4):
     if len(remaining_in) > 0:
         ffwd(remaining_in, remaining_out, checkpoint_dir, 
             device_t=device_t, batch_size=1)
+
 def verify(dirname):
       if not os.path.exists(dirname):
           os.mkdir(dirname)
