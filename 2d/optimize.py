@@ -56,9 +56,9 @@ def relu(input):
     return tf.nn.relu(input)
 
 def optimize(run_path, content_targets, style_target, content_weight, style_weight,
-             tv_weight, epochs=2, print_iterations=1000,
+             tv_weight, shift, epochs=2, print_iterations=1000,
              batch_size=4, save_path='saver/fns.ckpt',
-             learning_rate=1e-3, debug=False):
+             learning_rate=1e-3,  debug=False):
 
     mod = len(content_targets) % batch_size
     if mod > 0:
@@ -80,7 +80,7 @@ def optimize(run_path, content_targets, style_target, content_weight, style_weig
         for layer in STYLE_LAYERS:
             features = net[layer].eval(feed_dict={style_image:style_pre})
             features = np.reshape(features, (-1, features.shape[3]))
-            gram = np.matmul(features.T, features) / features.size
+            gram = np.matmul(features.T - shift, features - shift) / features.size
             style_features[layer] = gram
 
     with tf.Graph().as_default(), tf.compat.v1.Session() as sess:
@@ -110,7 +110,7 @@ def optimize(run_path, content_targets, style_target, content_weight, style_weig
             size = height * width * filters
             feats = tf.reshape(layer, (bs, height * width, filters))
             feats_T = tf.transpose(a=feats, perm=[0,2,1])
-            grams = tf.matmul(feats_T, feats) / size
+            grams = tf.matmul(feats_T - shift, feats - shift) / size
             style_gram = style_features[style_layer]
             style_losses.append(2 * tf.nn.l2_loss(grams - style_gram)/style_gram.size)
 

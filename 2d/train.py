@@ -1,3 +1,6 @@
+"""
+Based on Fast Style Transfer https://github.com/lengstrom/fast-style-transfer.git
+"""
 from __future__ import print_function
 import sys, os, pdb
 import numpy as np, scipy.misc 
@@ -14,17 +17,6 @@ import subprocess
 import numpy
 import utils
 
-CONTENT_WEIGHT = 7.5e0
-STYLE_WEIGHT = 1e2
-TV_WEIGHT = 2e2
-
-LEARNING_RATE = 1e-3
-NUM_EPOCHS = 2
-CHECKPOINT_DIR = './checkpoints'
-CHECKPOINT_ITERATIONS = 2000
-
-TRAIN_PATH = './data_generation/train_pdb'
-BATCH_SIZE = 4
 DEVICE = '/gpu:0'
 FRAC_GPU = 1
 
@@ -33,59 +25,60 @@ def build_parser():
     parser.add_argument('--run_path', type=str,
                         dest='run_path',
                         help='path to .mat weights',
-                        metavar='VGG_PATH', default='./imagenet-vgg-verydeep-19.mat')
+                         default='./imagenet-vgg-verydeep-19.mat')
     parser.add_argument('--checkpoint-dir', type=str,
                         dest='checkpoint_dir', help='dir to save checkpoint in',
-                        metavar='CHECKPOINT_DIR', default=CHECKPOINT_DIR)
+                         default='./chekpoints')
 
     parser.add_argument('--style', type=str,
                         dest='style', help='style image path',
-                        metavar='STYLE', required=True)
+                         required=True)
 
     parser.add_argument('--train-path', type=str,
                         dest='train_path', help='path to training images folder',
-                        metavar='TRAIN_PATH', default=TRAIN_PATH)
+                         default='./data_generation/train_pdb')
 
     parser.add_argument('--test', type=str,
                         dest='test', help='test image path',
-                        metavar='TEST', default=False)
+                         default=False)
 
     parser.add_argument('--test-dir', type=str,
                         dest='test_dir', help='test image save dir',
-                        metavar='TEST_DIR', default=False)
+                        default=False)
 
     parser.add_argument('--epochs', type=int,
-                        dest='epochs', help='num epochs',
-                        metavar='EPOCHS', default=NUM_EPOCHS)
+                        dest='epochs', help='num epochs', default=100)
 
     parser.add_argument('--batch-size', type=int,
-                        dest='batch_size', help='batch size',
-                        metavar='BATCH_SIZE', default=BATCH_SIZE)
+                        dest='batch_size', help='batch size', default=4)
 
     parser.add_argument('--checkpoint-iterations', type=int,
                         dest='checkpoint_iterations', help='checkpoint frequency',
-                        metavar='CHECKPOINT_ITERATIONS',
-                        default=CHECKPOINT_ITERATIONS)
+                        default=2000)
 
     parser.add_argument('--content-weight', type=float,
                         dest='content_weight',
-                        help='content weight (default %(default)s)',
-                        metavar='CONTENT_WEIGHT', default=CONTENT_WEIGHT)
+                        help='content weight',
+                        default=7.5e0)
     
     parser.add_argument('--style-weight', type=float,
                         dest='style_weight',
-                        help='style weight (default %(default)s)',
-                        metavar='STYLE_WEIGHT', default=STYLE_WEIGHT)
+                        help='style weight',
+                        default=1e2)
 
     parser.add_argument('--tv-weight', type=float,
                         dest='tv_weight',
-                        help='total variation regularization weight (default %(default)s)',
-                        metavar='TV_WEIGHT', default=TV_WEIGHT)
-    
+                        help='total variation regularization weight', default=2e2)
+
+    parser.add_argument('--shift', type=float,
+                        dest='shift',
+                        help='with (1) or w/o (0) shifted activations when computing Gram matrices',
+                        default=0)
+
     parser.add_argument('--learning-rate', type=float,
                         dest='learning_rate',
                         help='learning rate (default %(default)s)',
-                        metavar='LEARNING_RATE', default=LEARNING_RATE)
+                        metavar='LEARNING_RATE', default=1e-3)
 
     return parser
 
@@ -197,8 +190,6 @@ def main():
         "save_path":os.path.join(options.checkpoint_dir,'fns.ckpt'),
         "learning_rate":options.learning_rate
     }
-
-
     args = [
         options.run_path,
         content_targets,
@@ -206,6 +197,7 @@ def main():
         options.content_weight,
         options.style_weight,
         options.tv_weight,
+        options.shift
     ]
 
     for preds, losses, i, epoch in tqdm(optimize.optimize(*args, **kwargs)):

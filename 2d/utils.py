@@ -30,5 +30,4 @@ def list_files(in_path):
     for (dirpath, dirnames, filenames) in os.walk(in_path):
         files.extend(filenames)
         break
-
     return files
