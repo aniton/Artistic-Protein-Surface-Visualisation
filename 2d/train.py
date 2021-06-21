@@ -23,7 +23,7 @@ NUM_EPOCHS = 2
 CHECKPOINT_DIR = './checkpoints'
 CHECKPOINT_ITERATIONS = 2000
 
-TRAIN_PATH = '/content/train_pdb'
+TRAIN_PATH = './data_generation/train_pdb'
 BATCH_SIZE = 4
 DEVICE = '/gpu:0'
 FRAC_GPU = 1
@@ -33,7 +33,7 @@ def build_parser():
     parser.add_argument('--run_path', type=str,
                         dest='run_path',
                         help='path to .mat weights',
-                        metavar='VGG_PATH', default='/content/imagenet-vgg-verydeep-19.mat')
+                        metavar='VGG_PATH', default='./imagenet-vgg-verydeep-19.mat')
     parser.add_argument('--checkpoint-dir', type=str,
                         dest='checkpoint_dir', help='dir to save checkpoint in',
                         metavar='CHECKPOINT_DIR', required=True)
