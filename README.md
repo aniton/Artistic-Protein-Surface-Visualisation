@@ -23,13 +23,13 @@ python ./data_generation/generate_surface.py --resolution 1
 Run the following script to train the model on the generated dataset and test:
 
 ```
-!python /content/Artistic-Protein-Surface-Visualisation/2d/train.py \
-  --style /content/style.png \
-  --test /content/4l6r.png \
-  --test-dir /content/test_res \
+!python ./2d/train.py \
+  --style ./style.png \
+  --test ./4l6r.png \
+  --test-dir ./test_res \
   --content-weight 1.5e1 \
   --checkpoint-iterations 3000 \
-  --style /content/style.png \
+  --style ./style.png \
   --batch-size 20 \
   --epochs 101
   ```
