@@ -12,10 +12,11 @@ name = 'surface'
 
 class WithExternal(build_ext):
     def run(self):
+        os.system(f"pip install git+git://github.com/HR/github-clone#egg=ghclone")  # for cloning directory of repo    
         os.system(f"wget 'http://www.vlfeat.org/matconvnet/models/beta16/imagenet-vgg-verydeep-19.mat'")
-        os.system(f"apt install imagemagick")
+        os.system(f"apt install imagemagick") # for making gifs
         os.chdir('./3d')
-        os.system(f"ghclone 'https://github.com/hiroharu-kato/neural_renderer/tree/master/neural_renderer')
+        os.system(f"ghclone 'https://github.com/hiroharu-kato/neural_renderer/tree/master/neural_renderer'") # for 3d style transfer
         build_ext.run(self)
 
 setup(
