@@ -163,12 +163,22 @@ def ffwd(data_in, paths_out, checkpoint_dir, device_t='/gpu:0', batch_size=4):
     if len(remaining_in) > 0:
         ffwd(remaining_in, remaining_out, checkpoint_dir, 
             device_t=device_t, batch_size=1)
+def verify(dirname):
+      if not os.path.exists(dirname):
+          os.mkdir(dirname)
+          print("Directory " , dirname,  " Created ")
+      else:    
+          print("Directory " , dirname,  " already exists")
 
-
+def ffwd_to_img(in_path, out_path, checkpoint_dir, device='/cpu:0'):
+    paths_in, paths_out = [in_path], [out_path]
+    ffwd(paths_in, paths_out, checkpoint_dir, batch_size=1, device_t=device)
 
 def main():
     parser = build_parser()
     options = parser.parse_args()
+    verify(options.test_dir)
+    verify(options.checkpoint_dir)
     check_opts(options)
     style_target = utils.get_img(options.style)
     content_targets = _get_files(options.train_path)
