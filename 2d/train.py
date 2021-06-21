@@ -36,7 +36,7 @@ def build_parser():
                         metavar='VGG_PATH', default='./imagenet-vgg-verydeep-19.mat')
     parser.add_argument('--checkpoint-dir', type=str,
                         dest='checkpoint_dir', help='dir to save checkpoint in',
-                        metavar='CHECKPOINT_DIR', required=True)
+                        metavar='CHECKPOINT_DIR', default=CHECKPOINT_DIR)
 
     parser.add_argument('--style', type=str,
                         dest='style', help='style image path',
@@ -183,8 +183,8 @@ def ffwd_to_img(in_path, out_path, checkpoint_dir, device='/cpu:0'):
 def main():
     parser = build_parser()
     options = parser.parse_args()
-    verify(options.test_dir)
     verify(options.checkpoint_dir)
+    verify(options.test_dir)
     check_opts(options)
     style_target = utils.get_img(options.style)
     content_targets = _get_files(options.train_path)
