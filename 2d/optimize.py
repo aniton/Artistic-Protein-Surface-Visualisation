@@ -6,56 +6,54 @@ import model
 import scipy.io as sio
 from utils import get_img
 
-STYLE_LAYERS = ('block_conv1_1', 'block_conv2_1', 'block_conv3_1', 'block_conv4_1', 'block_conv5_1')
-CONTENT_LAYER = 'block_conv5_2'
-DEVICES = 'CUDA_VISIBLE_DEVICES'
-
+STYLE_LAYERS = ('relu1_1', 'relu2_1', 'relu3_1', 'relu4_1', 'relu5_1')
+CONTENT_LAYER = 'relu5_2'
 
 def preprocess(image):
     return image - np.array([ 123.68 ,  116.779,  103.939])
 
 def vgg_model(data_path, input_image):
     layers = (
-        'block_conv1_1', 'block_conv1_2', 'pool1',
-        'block_conv2_1', 'block_conv2_2', 'pool2',
-        'block_conv3_1', 'block_conv3_2', 'block_conv3_3', 'block_conv3_4', 'pool3',
-        'block_conv4_1', 'block_conv4_2', 'block_conv4_3', 'block_conv4_4', 'pool4',
-        'block_conv5_1', 'block_conv5_2', 'block_conv5_3', 'block_conv5_4'
+        'conv1_1', 'relu1_1', 'conv1_2', 'relu1_2', 'pool1',
+        'conv2_1', 'relu2_1', 'conv2_2', 'relu2_2', 'pool2',
+        'conv3_1', 'relu3_1', 'conv3_2', 'relu3_2', 'conv3_3', 'relu3_3', 'conv3_4', 'relu3_4', 'pool3',
+        'conv4_1', 'relu4_1', 'conv4_2', 'relu4_2', 'conv4_3', 'relu4_3', 'conv4_4', 'relu4_4', 'pool4',
+        'conv5_1', 'relu5_1', 'conv5_2', 'relu5_2', 'conv5_3', 'relu5_3', 'conv5_4', 'relu5_4'
     )
 
     data = sio.loadmat(data_path)
     weights = data['layers'][0]
-
     net = {}
     current = input_image
     for i, name in enumerate(layers):
         kind = name[:4]
-        if kind == 'block_conv':
+        if kind == 'conv':
             kernels, bias = weights[i][0][0][0][0]
-            # matconvnet: weights are [width, height, in_channels, out_channels]
-            # tensorflow: weights are [height, width, in_channels, out_channels]
             kernels = np.transpose(kernels, (1, 0, 2, 3))
             bias = bias.reshape(-1)
             current = conv2d(current, kernels, bias)
             current = tf.nn.relu(current)
+        elif kind == 'relu':
+            current = relu(current)
         elif kind == 'pool':
             current = pool(current)
+        
         net[name] = current
 
     assert len(net) == len(layers)
     return net
-
 
 def conv2d(input, weights, bias):
     conv = tf.nn.conv2d(input=input, filters=tf.constant(weights), strides=(1, 1, 1, 1),
             padding='SAME')
     return tf.nn.bias_add(conv, bias)
 
-
 def pool(input):
     return tf.nn.max_pool2d(input=input, ksize=(1, 2, 2, 1), strides=(1, 2, 2, 1),
             padding='SAME')
 
+def relu(input):
+    return tf.nn.relu(input)
 
 def optimize(run_path, content_targets, style_target, content_weight, style_weight,
              tv_weight, epochs=2, print_iterations=1000,
