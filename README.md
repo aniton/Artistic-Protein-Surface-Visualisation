@@ -23,7 +23,8 @@ python ./data_generation/generate_surface.py --resolution 1
 Run the following script to train the model on the generated dataset and test:
 
 ```
-!python /content/Artistic-Protein-Surface-Visualisation/2d/train.py --style /content/style.png \
+!python /content/Artistic-Protein-Surface-Visualisation/2d/train.py \
+  --style /content/style.png \
   --test /content/4l6r.png \
   --test-dir /content/test_res \
   --content-weight 1.5e1 \
