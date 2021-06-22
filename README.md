@@ -46,5 +46,7 @@ python ./2d/train.py \
 ![Screenshot](./results/cnn.png) <br>
 With shifted activations when computing Gram matrices: <br>
 ![Screenshot](./results/shift.png) 
- ### Neural 3D Mesh Renderer
+### Neural 3D Mesh Rendere
+<img src="./example/obj.gif" width="205" height="195"><img src="./example/style.png" width="240" height="160"><img src="./example/mesh22d.png" width="240" height="160">
+ ### Neural 3D Mesh Renderer + Reconstruction
 <img src="./example/obj.gif" width="205" height="195"><img src="./example/style.png" width="240" height="160"><img src="./results/result3d.gif" width="205" height="195">
