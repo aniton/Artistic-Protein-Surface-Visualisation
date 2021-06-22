@@ -40,4 +40,4 @@ Run the following script to train the model on the generated dataset and test:
 ![Screenshot](./results/cnn.png) <br>
 With shifted activations when computing Gram matrices: <br>
 ![Screenshot](./results/shift.png) <br>
-![](./example/obj.gif){:height="36px" width="36px"}![](./example/style_small.jpg)![](./results/result3d.gif)
+<img src="./example/obj.gif" width="100" height="100">![](./example/style_small.jpg)![](./results/result3d.gif)
