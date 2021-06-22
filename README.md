@@ -17,11 +17,11 @@ python ./data_generation/generate_surface.py --resolution 1
 ## 2D Models
 
 ### CNN Style Transfer 
-[Paper](https://openaccess.thecvf.com/content_cvpr_2016/papers/Gatys_Image_Style_Transfer_CVPR_2016_paper.pdf)
+[[Paper]](https://openaccess.thecvf.com/content_cvpr_2016/papers/Gatys_Image_Style_Transfer_CVPR_2016_paper.pdf)
 The training is optimized by using:
-- Perceptual losses based on features extracted from pretrained models [Paper](https://arxiv.org/pdf/1603.08155.pdf)
-- Instance normalization [Paper](https://arxiv.org/pdf/1607.08022.pdf)
-Based on [Implementation](https://github.com/lengstrom/fast-style-transfer)
+- Perceptual losses based on features extracted from pretrained models [[Paper]](https://arxiv.org/pdf/1603.08155.pdf)
+- Instance normalization [[Paper]](https://arxiv.org/pdf/1607.08022.pdf) <br>
+Based on [[Implementation]](https://github.com/lengstrom/fast-style-transfer)
 
 Run the following script to train the model on the generated dataset and test:
 
