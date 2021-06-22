@@ -1,2 +1,3 @@
 biotite
-git+git://github.com/HR/github-clone#egg=ghclone
+chainer
+scipy==1.2.2
