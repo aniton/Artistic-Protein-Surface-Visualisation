@@ -14,7 +14,7 @@ pip install -e .
 ## Data generation
 
 ```
-python ./data_generation/generate_surface.py --resolution 1
+!python ./data_generation/generate_surface.py --resolution 1
 ```
 ## 2D Models
 
