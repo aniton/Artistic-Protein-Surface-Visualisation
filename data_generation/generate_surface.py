@@ -4,7 +4,8 @@ import argparse
 
 """
 Before this download and launch pymol: "pymol -R"
-This function generates surface representations (.png) of the proteins from PDB, which resolution is less_or_equeal certain number. Recommended -- 1. This will generate 1249 images.
+This function generates surface representations (.png) of the proteins from PDB, which resolution is less_or_equeal certain number. 
+Recommended -- 1. This will generate 1249 images.
 """
 
 def generate(resolution):
