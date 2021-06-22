@@ -35,7 +35,8 @@ python ./2d/train.py \
   ``` 
  Add  `--shift 1` in order to calculate Gram matrices with shifted activations as suggested in [(Novak and Nikulin 2016)](https://arxiv.org/pdf/1605.04603.pdf)
  
- ## 3D Model: Neural 3D Mesh Renderer
+ ## 3D Model
+ ### Neural 3D Mesh Renderer
  Generate a gif from an .obj file and style image with a set number of optimizing steps:
  ```
  python ./3d/generate_gif.py  -io ./example/1EGQ.obj -ir ./example/style_small.jpg -is 200
