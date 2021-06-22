@@ -14,7 +14,7 @@ pip install -e .
 ## Data generation
 
 ```
-!python ./data_generation/generate_surface.py --resolution 1
+python ./data_generation/generate_surface.py --resolution 1
 ```
 ## 2D Models
 
@@ -23,7 +23,7 @@ pip install -e .
 Run the following script to train the model on the generated dataset and test:
 
 ```
-!python ./2d/train.py \
+python ./2d/train.py \
   --style ./style.png \
   --test ./4l6r.png \
   --test-dir ./test_res \
@@ -38,7 +38,7 @@ Run the following script to train the model on the generated dataset and test:
  ## 3D Model: Neural 3D Mesh Renderer
  Generate a gif from an .obj file and style image with a set number of optimizing steps:
  ```
- !python ./3d/generate_gif.py  -io ./example/1EGQ.obj -ir ./example/style_small.jpg -is 200
+ python ./3d/generate_gif.py  -io ./example/1EGQ.obj -ir ./example/style_small.jpg -is 200
  ```
  
  ## Results
