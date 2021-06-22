@@ -33,7 +33,7 @@ Run the following script to train the model on the generated dataset and test:
   --batch-size 20 \
   --epochs 101
   ``` 
- Add  `--shift 1` in order to calculate Gram matrices with shifted activations as suggested in [Novak and Nikulin 2016](https://arxiv.org/pdf/1605.04603.pdf)
+ Add  `--shift 1` in order to calculate Gram matrices with shifted activations as suggested in [(Novak and Nikulin 2016)](https://arxiv.org/pdf/1605.04603.pdf)
  
  ## Results
  ### CNN Style Transfer
