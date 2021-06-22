@@ -65,7 +65,7 @@ def run():
     parser = argparse.ArgumentParser()
     parser.add_argument('-io', '--filename_obj', type=str, default='./example/4L6R.obj')
     parser.add_argument('-ir', '--filename_ref', type=str, default='./example/style_small.jpg')
-    parser.add_argument('-is', '--num_opt_stages', type=str, default=300)
+    parser.add_argument('-is', '--num_opt_steps', type=str, default=300)
     parser.add_argument('-or', '--filename_output', type=str, default=f"./result.gif")
     parser.add_argument('-g', '--gpu', type=int, default=0)
     args = parser.parse_args()
@@ -76,7 +76,7 @@ def run():
 
     optimizer = chainer.optimizers.Adam(alpha=0.1, beta1=0.5)
     optimizer.setup(model)
-    loop = tqdm.tqdm(range(int(args.num_opt_stages)))
+    loop = tqdm.tqdm(range(int(args.num_opt_steps)))
     for _ in loop:
         loop.set_description('Optimizing')
         optimizer.target.cleargrads()
