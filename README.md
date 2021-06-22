@@ -39,5 +39,5 @@ Run the following script to train the model on the generated dataset and test:
  ### CNN Style Transfer
 ![Screenshot](./results/cnn.png) <br>
 With shifted activations when computing Gram matrices: <br>
-![Screenshot](./results/shift.png)
-![Alt Text](./results/result3d.gif)![Alt Text](./results/result3d.gif)![Alt Text](./results/result3d.gif)
+![Screenshot](./results/shift.png) <br>
+![Alt Text](./example/obj.gif)![Alt Text](./example/style.png)![Alt Text](./results/result3d.gif)
