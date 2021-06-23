@@ -12,7 +12,7 @@ CONTENT_LAYER = 'relu5_2'
 def preprocess(image):
     return image - np.array([ 123.68 ,  116.779,  103.939])
 
-def vgg_model(data_path, input_image):
+def loss_vgg_model(data_path, input_image):
     layers = (
         'conv1_1', 'relu1_1', 'conv1_2', 'relu1_2', 'pool1',
         'conv2_1', 'relu2_1', 'conv2_2', 'relu2_2', 'pool2',
@@ -75,7 +75,7 @@ def optimize(run_path, content_targets, style_target, content_weight, style_weig
     with tf.Graph().as_default(), tf.device('/cpu:0'), tf.compat.v1.Session() as sess:
         style_image = tf.compat.v1.placeholder(tf.float32, shape=style_shape, name='style_image')
         style_image_pre = preprocess(style_image)
-        net = vgg_model(run_path, style_image_pre)
+        net = loss_vgg_model(run_path, style_image_pre)
         style_pre = np.array([style_target])
         for layer in STYLE_LAYERS:
             features = net[layer].eval(feed_dict={style_image:style_pre})
@@ -89,7 +89,7 @@ def optimize(run_path, content_targets, style_target, content_weight, style_weig
 
         # precompute content features
         content_features = {}
-        content_net = vgg_model(run_path, X_pre)
+        content_net = loss_vgg_model(run_path, X_pre)
         content_features[CONTENT_LAYER] = content_net[CONTENT_LAYER]
 
         preds = model.net(X_content/255.0)
