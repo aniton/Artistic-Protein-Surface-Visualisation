@@ -33,8 +33,7 @@ python ./2d_cnn/train.py \
   --test-dir ./test_res \
   --content-weight 1.5e1 \
   --checkpoint-iterations 3000 \
-  --style ./style.png \
-  --batch-size 20 \
+  --batch-size 24 \
   --epochs 101
   ``` 
  Add  `--shift 1` in order to calculate Gram matrices with shifted activations as suggested in [(Novak and Nikulin 2016)](https://arxiv.org/pdf/1605.04603.pdf) to elimanate sparsity and fasten convergence.
