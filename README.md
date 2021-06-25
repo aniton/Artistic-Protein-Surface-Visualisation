@@ -10,7 +10,7 @@ cd Artistic-Protein-Surface-Visualisation
 pip install -e .
 ```
 ## Data generation
-
+Execute in order to generate protein surfaces in .png:
 ```
 python ./data_generation/generate_surface.py --resolution 1
 ```
@@ -22,7 +22,7 @@ The training is optimized by using:
 - Perceptual loss with vgg19 pretrained model [[Paper]](https://arxiv.org/pdf/1603.08155.pdf)
 - Instance normalization [[Paper]](https://arxiv.org/pdf/1607.08022.pdf) <br>
 
-
+Trained on protein surfaces data, generated above and fixed style image. <br>
 Based on [[Implementation]](https://github.com/lengstrom/fast-style-transfer) <br>
 Run the following script to train the model on the generated dataset and test:
 
