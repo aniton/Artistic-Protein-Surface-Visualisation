@@ -27,7 +27,7 @@ Based on [[Implementation]](https://github.com/lengstrom/fast-style-transfer) <b
 Run the following script to train the model on the generated dataset and test:
 
 ```
-python ./2d/train.py \
+python ./2d_cnn/train.py \
   --style ./style.png \
   --test ./4l6r.png \
   --test-dir ./test_res \
