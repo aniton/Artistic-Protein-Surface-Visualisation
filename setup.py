@@ -17,9 +17,7 @@ class WithExternal(build_ext):
         os.chdir('./3d')
         os.system(f"ghclone 'https://github.com/hiroharu-kato/neural_renderer/tree/master/neural_renderer'") # for 3d style transfer
         build_ext.run(self)
-	      """
-	      For CycleGan model:
-	      """
+
        # os.chdir('../2d_cyclegan')
       #  os.system(f"ghclone 'https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix/tree/master/data'")
       #  os.system(f"ghclone 'https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix/tree/master/models'")
