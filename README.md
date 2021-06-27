@@ -38,7 +38,7 @@ python ./2d_cnn/train.py \
   ``` 
  Add  `--shift 1` in order to calculate Gram matrices with shifted activations as suggested in [(Novak and Nikulin 2016)](https://arxiv.org/pdf/1605.04603.pdf) to elimanate sparsity and fasten convergence.
 
-### CycleGan
+### CycleGAN
 Put the generated protein data to  ./2d_cyclegan/datasets/trainA <br>
 It is suggested to train the model with a fixed style image in order to achieve considerable result. One such image was put into ./2d_cyclegan/datasets/trainB with initial installation of the repo. <br>
 Train your model with
