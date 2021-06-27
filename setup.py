@@ -4,7 +4,6 @@ from setuptools import setup, find_packages
 from setuptools.command.build_ext import build_ext
 
 
-
 with open('requirements.txt', encoding='utf-8') as file:
     requirements = file.read().splitlines()
 
@@ -20,15 +19,15 @@ class WithExternal(build_ext):
 	"""
 	For CycleGan model:
 	"""
-	os.chdir('../2d_cyclegan')
-	#os.system(f"ghclone 'https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix/tree/master/data'")
-	#os.system(f"ghclone 'https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix/tree/master/models'")
-	#os.system(f"ghclone 'https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix/tree/master/options'")
-	#os.system(f"ghclone 'https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix/tree/master/util'")
-	#os.mkdir('./datasets')
-	#os.system(f"cp '../example/style_black.png ./datasets/trainB'") # fixed style image
+        os.chdir('../2d_cyclegan')
+        os.system(f"ghclone 'https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix/tree/master/data'")
+        os.system(f"ghclone 'https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix/tree/master/models'")
+        os.system(f"ghclone 'https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix/tree/master/options'")
+        os.system(f"ghclone 'https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix/tree/master/util'")
+        os.mkdir('./datasets')
+        os.system(f"cp '../example/style_black.png ./datasets/trainB'") # fixed style image
 
-  	build_ext.run(self)
+        build_ext.run(self)
 
 setup(
     name=name,
