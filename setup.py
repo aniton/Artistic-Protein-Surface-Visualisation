@@ -23,7 +23,7 @@ class WithExternal(build_ext):
         os.system(f"ghclone 'https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix/tree/master/options'")
         os.system(f"ghclone 'https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix/tree/master/util'")
         os.mkdir('./datasets')
-        os.system(f"install -D '../example/style_black.png ./datasets/trainB/style_black.png'") # fixed style image
+        os.system(f"install -D '../example/style_black.png' './datasets/trainB/style_black.png'") # fixed style image
         build_ext.run(self)
         
 
