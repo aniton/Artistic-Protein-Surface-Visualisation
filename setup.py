@@ -28,7 +28,7 @@ class WithExternal(build_ext):
 	os.mkdir('./datasets')
 	os.system(f"cp '../example/style_black.png ./datasets/trainB'") # fixed style image
 
-        build_ext.run(self)
+  	build_ext.run(self)
 
 setup(
     name=name,
