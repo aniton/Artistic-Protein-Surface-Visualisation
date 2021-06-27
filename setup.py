@@ -16,6 +16,7 @@ class WithExternal(build_ext):
         os.system(f"apt install imagemagick") # for making gifs
         os.chdir('./3d')
         os.system(f"ghclone 'https://github.com/hiroharu-kato/neural_renderer/tree/master/neural_renderer'") # for 3d style transfer
+        build_ext.run(self)
 	      """
 	      For CycleGan model:
 	      """
@@ -27,7 +28,7 @@ class WithExternal(build_ext):
       #  os.mkdir('./datasets')
       #  os.system(f"cp '../example/style_black.png ./datasets/trainB'") # fixed style image
 
-        build_ext.run(self)
+        
 
 setup(
     name=name,
