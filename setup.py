@@ -16,16 +16,15 @@ class WithExternal(build_ext):
         os.system(f"apt install imagemagick") # for making gifs
         os.chdir('./3d')
         os.system(f"ghclone 'https://github.com/hiroharu-kato/neural_renderer/tree/master/neural_renderer'") # for 3d style transfer
+        
+        os.chdir('../2d_cyclegan') # for CycleGan model:
+        os.system(f"ghclone 'https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix/tree/master/data'")
+        os.system(f"ghclone 'https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix/tree/master/models'")
+        os.system(f"ghclone 'https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix/tree/master/options'")
+        os.system(f"ghclone 'https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix/tree/master/util'")
+        os.mkdir('./datasets')
+        os.system(f"cp '../example/style_black.png ./datasets/trainB'") # fixed style image
         build_ext.run(self)
-
-       # os.chdir('../2d_cyclegan')
-      #  os.system(f"ghclone 'https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix/tree/master/data'")
-      #  os.system(f"ghclone 'https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix/tree/master/models'")
-      #  os.system(f"ghclone 'https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix/tree/master/options'")
-      #  os.system(f"ghclone 'https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix/tree/master/util'")
-      #  os.mkdir('./datasets')
-      #  os.system(f"cp '../example/style_black.png ./datasets/trainB'") # fixed style image
-
         
 
 setup(
