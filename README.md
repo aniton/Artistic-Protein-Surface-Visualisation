@@ -40,15 +40,16 @@ python ./2d_cnn/train.py \
 
 ### CycleGan
 Put the generated protein data to  ./2d_cyclegan/datasets/trainA <br>
-It is suggested to train the model with a fixed style image in order to achieve considerable result. One was put into ./2d_cyclegan/datasets/trainB with initial installation of the repo. <br>
+It is suggested to train the model with a fixed style image in order to achieve considerable result. One such image was put into ./2d_cyclegan/datasets/trainB with initial installation of the repo. <br>
 Train your model with
 ```
 python ./2d_cyclegan/train_gan.py --dataroot ./2d_cyclegan/datasets/ --name pdb2good --model cycle_gan --batch_size 4 --n_epochs 35
  ``` 
-One can also save our [pretrained model](https://drive.google.com/file/d/1jcHCqAkI5xWj4GfYgkqKnUBXGh9nbHHZ/view?usp=sharing) to ./2d_cyclegan/checkpoints/pdb2good/ <br> Then it can be tested on the proteins, which in advance can be put to ./2d_cyclegan/datasets/testA:
+One can also save our [pretrained model](https://drive.google.com/file/d/1jcHCqAkI5xWj4GfYgkqKnUBXGh9nbHHZ/view?usp=sharing) to ./2d_cyclegan/checkpoints/pdb2good/ <br> Then it can be tested on the proteins, which in advance should be put to ./2d_cyclegan/datasets/testA:
 ```
 !python test_gan.py --dataroot ./2d_cyclegan/datasets/testA --name pdb2goodmore --model test --no_dropout --model_suffix _A 
  ``` 
+ Based on [[Paper]](https://arxiv.org/pdf/1703.10593.pdf), [[Implementation]](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix)
  ## 3D Model
  ### Neural 3D Mesh Renderer
  Generate a gif from an .obj file and style image with a set number of optimizing steps:
