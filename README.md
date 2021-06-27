@@ -37,7 +37,18 @@ python ./2d_cnn/train.py \
   --epochs 101
   ``` 
  Add  `--shift 1` in order to calculate Gram matrices with shifted activations as suggested in [(Novak and Nikulin 2016)](https://arxiv.org/pdf/1605.04603.pdf) to elimanate sparsity and fasten convergence.
- 
+
+### CycleGan
+Put the generated protein data to  ./2d_cyclegan/datasets/trainA <br>
+It is suggested to train the model with a fixed style image in order to achieve considerable result. One was put into ./2d_cyclegan/datasets/trainB with initial installation of the repo. <br>
+Train your model with
+```
+python ./2d_cyclegan/train_gan.py --dataroot ./2d_cyclegan/datasets/ --name pdb2good --model cycle_gan --batch_size 4 --n_epochs 35
+ ``` 
+One can also save our [pretrained model](https://drive.google.com/file/d/1jcHCqAkI5xWj4GfYgkqKnUBXGh9nbHHZ/view?usp=sharing) to ./2d_cyclegan/checkpoints/pdb2good/ <br> Then it can be tested on the proteins, which in advance can be put to ./2d_cyclegan/datasets/testA:
+```
+!python test_gan.py --dataroot ./2d_cyclegan/datasets/testA --name pdb2goodmore --model test --no_dropout --model_suffix _A 
+ ``` 
  ## 3D Model
  ### Neural 3D Mesh Renderer
  Generate a gif from an .obj file and style image with a set number of optimizing steps:
