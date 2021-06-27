@@ -52,7 +52,7 @@ python test_gan.py --dataroot ./2d_cyclegan/datasets/testA --name pdb2goodmore -
  Based on [[Paper]](https://arxiv.org/pdf/1703.10593.pdf), [[Implementation]](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix)
  ## 3D Model
  ### Neural 3D Mesh Renderer
- Generate a gif from an .obj file and style image with a set number of optimizing steps:
+ Generate a gif and an stylized image from an .obj file and style image with a set number of optimizing steps:
  ```
  python ./3d/generate_gif.py  -io ./example/1EGQ.obj -ir ./example/style_small.jpg -is 200
  ```
