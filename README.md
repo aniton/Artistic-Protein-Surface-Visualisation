@@ -70,7 +70,7 @@ With shifted activations when computing Gram matrices: <br>
 <img src="./example/obj.gif" width="205" height="195"><img src="./example/style.png" width="240" height="160"><img src="./results/result3d.gif" width="205" height="195">
  Based on [[Paper]](https://arxiv.org/abs/1711.07566), [[Implementation]](https://github.com/hiroharu-kato/neural_renderer)
  ## Conclusions
- - Despite the fact that CycleGAN seems to show the best 2d result perceptually, it's not end-to-end solution, since such result can be achieved only by 
+ - Despite the fact that CycleGAN seems to show the best 2d result perceptually, it's not end-to-end solution, since such result can be achieved only by <br>
         - similarity of the geometric shape of the style and content images
         - same background
         - fixed style image
