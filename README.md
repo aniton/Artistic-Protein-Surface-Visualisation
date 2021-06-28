@@ -74,4 +74,6 @@ With shifted activations when computing Gram matrices: <br>
      - similarity of the geometric shape of the style and content images
      - same background
      - fixed style image
+     - using lsgan loss
+     - batch size >= 4 
         
