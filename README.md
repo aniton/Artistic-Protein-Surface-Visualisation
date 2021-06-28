@@ -83,4 +83,4 @@ With shifted activations when computing Gram matrices: <br>
      - fixed style image
      - using lsgan loss
      - batch size >= 4 
-        
+- CNN with AdaIN adapts well to the color of the style image, but not to the texture.  
