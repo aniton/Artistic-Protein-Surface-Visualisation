@@ -1,5 +1,6 @@
 # Artistic Protein Surface Visualisation
-
+## Aim
+Transfer style of [Goodsell Art](https://ccsb.scripps.edu/goodsell/) to protein surface representations
 ## Installation
 
 Execute from the directory you want the repo to be installed:
@@ -49,7 +50,7 @@ Train your model with
 ```
 python ./2d_cyclegan/train_gan.py --dataroot ./2d_cyclegan/datasets/ --name pdb2good --model cycle_gan --batch_size 4 --n_epochs 35
  ``` 
-One can also save our [pretrained model](https://drive.google.com/file/d/1jcHCqAkI5xWj4GfYgkqKnUBXGh9nbHHZ/view?usp=sharing) to ./2d_cyclegan/checkpoints/pdb2good/ <br> Then it can be tested on the proteins, which in advance should be put to ./2d_cyclegan/datasets/testA:
+One can also save our [pretrained pdb2good model](https://drive.google.com/file/d/1jcHCqAkI5xWj4GfYgkqKnUBXGh9nbHHZ/view?usp=sharing) to ./2d_cyclegan/checkpoints/pdb2good/ <br> Then it can be tested on the proteins, which in advance should be put to ./2d_cyclegan/datasets/testA:
 ```
 python test_gan.py --dataroot ./2d_cyclegan/datasets/testA --name pdb2goodmore --model test --no_dropout --model_suffix _A 
  ``` 
