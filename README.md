@@ -37,6 +37,10 @@ python ./2d_cnn/train.py \
   --epochs 101
   ``` 
  Add  `--shift 1` in order to calculate Gram matrices with shifted activations as suggested in [(Novak and Nikulin 2016)](https://arxiv.org/pdf/1605.04603.pdf) to elimanate sparsity and fasten convergence.
+ 
+### Adding AdaIN (Adaptive Instance Normalization) for arbitrary style images
+
+Based on [[Paper]](https://arxiv.org/pdf/1703.06868.pdf).
 
 ### CycleGAN
 Put the generated protein data to  ./2d_cyclegan/datasets/trainA <br>
@@ -62,8 +66,12 @@ python test_gan.py --dataroot ./2d_cyclegan/datasets/testA --name pdb2goodmore -
 ![Screenshot](./results/cnn.png) <br>
 With shifted activations when computing Gram matrices: <br>
 ![Screenshot](./results/shift.png) 
+ ### AdaIN
+ ![Screenshot](./results/ada1.png) <br>
+  ![Screenshot](./results/ada2.png) 
  ### CycleGAN
  ![Screenshot](./results/gan_new.png) <br>
+
 ### Neural 3D Mesh Renderer
 <img src="./example/obj.gif" width="205" height="195"><img src="./example/style.png" width="240" height="160"><img src="./example/mesh22d.png" width="220" height="210">
  ### Neural 3D Mesh Renderer + Reconstruction
