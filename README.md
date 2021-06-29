@@ -29,6 +29,7 @@ Run the following script to train the model on the generated dataset and test:
 
 ```
 python ./2d_cnn/train.py \
+  --train-path ./data_generation/train_pdb \
   --style ./style.png \
   --test ./4l6r.png \
   --test-dir ./test_res \
