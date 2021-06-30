@@ -50,7 +50,7 @@ Train the model with generated proteins data and style images (put into 'goodsel
 !python ./2d_adain/test_AdaIN.py --content_path ./proteins_test --content_path --style_path ./goodsell_art_test --weights weights.npy
  ``` 
  
-Based on [[Paper]](https://arxiv.org/pdf/1703.06868.pdf).
+Based on [[Paper]](https://arxiv.org/pdf/1703.06868.pdf), [[Implementation]](https://github.com/JunbinWang/Tensorflow-Style-Transfer-with-Adain).
 
 ### CycleGAN
 Put the generated protein data to  ./2d_cyclegan/datasets/trainA <br>
