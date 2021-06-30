@@ -13,6 +13,7 @@ class WithExternal(build_ext):
     def run(self):
         os.system(f"pip install git+git://github.com/HR/github-clone#egg=ghclone")  # for cloning a specific directory of repo    
         os.system(f"wget 'http://www.vlfeat.org/matconvnet/models/beta16/imagenet-vgg-verydeep-19.mat'")
+        os.system(f"wget 'https://s3-us-west-2.amazonaws.com/wengaoye/vgg19_normalised.npz'") # for AdaIN
         os.system(f"apt install imagemagick") # for making gifs
         os.chdir('./3d')
         os.system(f"ghclone 'https://github.com/hiroharu-kato/neural_renderer/tree/master/neural_renderer'") # for 3d style transfer
