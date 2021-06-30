@@ -41,7 +41,7 @@ python ./2d_cnn/train.py \
  Add  `--shift 1` in order to calculate Gram matrices with shifted activations as suggested in [(Novak and Nikulin 2016)](https://arxiv.org/pdf/1605.04603.pdf) to elimanate sparsity and fasten convergence.
  
 ### AdaIN (Adaptive Instance Normalization) for arbitrary style images
-Train the model with generated proteins data and style images (put into 'goodsell_art' folder:
+Train the model with generated proteins data and style images (put into 'goodsell_art' folder):
 ```
 !python ./2d_adain/train_AdaIN.py --content_path ./data_generation/train_pdb --content_path --style_path ./goodsell_art
  ``` 
