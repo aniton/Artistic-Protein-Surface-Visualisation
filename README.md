@@ -30,8 +30,8 @@ Run the following script to train the model on the generated dataset and test:
 ```
 python ./2d_cnn/train.py \
   --train-path ./data_generation/train_pdb \
-  --style ./style.png \
-  --test ./4l6r.png \
+  --style ./example/style.png \
+  --test ./example/4l6r.png \
   --test-dir ./test_res \
   --content-weight 1.5e1 \
   --checkpoint-iterations 3000 \
@@ -40,8 +40,16 @@ python ./2d_cnn/train.py \
   ``` 
  Add  `--shift 1` in order to calculate Gram matrices with shifted activations as suggested in [(Novak and Nikulin 2016)](https://arxiv.org/pdf/1605.04603.pdf) to elimanate sparsity and fasten convergence.
  
-### Adding AdaIN (Adaptive Instance Normalization) for arbitrary style images
-
+### AdaIN (Adaptive Instance Normalization) for arbitrary style images
+Train the model with generated proteins data and style images (put into 'goodsell_art' folder:
+```
+!python ./2d_adain/train_AdaIN.py --content_path ./data_generation/train_pdb --content_path --style_path ./goodsell_art
+ ``` 
+ One can also test our [pretrained model](https://drive.google.com/file/d/1m6n_rV0RBduJCUiG_nXzkLQUkmtnxd8k/view?usp=sharing) with arbitrary style images:
+ ```
+!python ./2d_adain/test_AdaIN.py --content_path ./proteins_test --content_path --style_path ./goodsell_art_test --weights weights.npy
+ ``` 
+ 
 Based on [[Paper]](https://arxiv.org/pdf/1703.06868.pdf).
 
 ### CycleGAN
