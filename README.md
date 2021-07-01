@@ -61,7 +61,7 @@ python ./2d_cyclegan/train_gan.py --dataroot ./2d_cyclegan/datasets/ --name pdb2
  ``` 
 One can also save our [pretrained pdb2good model](https://drive.google.com/file/d/1jcHCqAkI5xWj4GfYgkqKnUBXGh9nbHHZ/view?usp=sharing) to ./2d_cyclegan/checkpoints/pdb2good/ <br> Then it can be tested on the proteins, which in advance should be put to ./2d_cyclegan/datasets/testA:
 ```
-python test_gan.py --dataroot ./2d_cyclegan/datasets/testA --name pdb2goodmore --model test --no_dropout --model_suffix _A 
+python test_gan.py --dataroot ./2d_cyclegan/datasets/testA --name pdb2good --model test --no_dropout --model_suffix _A 
  ``` 
  Based on [[Paper]](https://arxiv.org/pdf/1703.10593.pdf), [[Implementation]](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix)
  ## 3D Model
