@@ -1,6 +1,7 @@
 import biotite.database.rcsb as rcsb
 import xmlrpc.client as xlmrpclib
 import argparse
+import time
 
 """
 Before this download and launch pymol: "pymol -R"
@@ -21,7 +22,7 @@ def generate(resolution):
     		cmd.ray()
     		cmd.set('ray_opaque_background',  'off')
     		cmd.png(f'./train_pdb/{pdb_id}.png')
-
+		time.sleep(5)
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser()
