@@ -188,7 +188,7 @@ def run():
           "epochs":options.epochs,
           "print_iterations":options.checkpoint_iterations,
           "batch_size":options.batch_size,
-          "save_path":os.path.join(options.checkpoint_dir,'fns.ckpt'),
+          "save_path":os.path.join(options.checkpoint_dir,f'{os.path.splitext(os.path.basename(style))[0]}.ckpt'),
           "learning_rate":options.learning_rate
          }
         args = [
@@ -209,7 +209,7 @@ def run():
           print('style: %s, content:%s, tv: %s' % to_print)
           if options.test:
               assert options.test_dir != False
-              preds_path = '%s/%s_%s_%s.png' % (options.test_dir,epoch,i, os.path.basename(style))          
+              preds_path = '%s/%s_%s_%s.png' % (options.test_dir,epoch,i, os.path.splitext(os.path.basename(style))[0])          
               ckpt_dir = os.path.dirname(options.checkpoint_dir)
               ffwd_to_img(options.test,preds_path,
                                      options.checkpoint_dir)
