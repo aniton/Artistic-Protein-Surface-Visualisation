@@ -39,6 +39,7 @@ python ./2d_cnn/train.py \
   --epochs 101
   ``` 
  Add  `--shift 1` in order to calculate Gram matrices with shifted activations as suggested in [(Novak and Nikulin 2016)](https://arxiv.org/pdf/1605.04603.pdf) to elimanate sparsity and fasten convergence. <br>
+ 
 Beforehand one should put a fixed style image into `style_dir`. If there are > 1 style image in the folder, multiple models will run (one per style image). <br>
 
 To evaluate the model on the group of proteins run:
