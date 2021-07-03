@@ -44,7 +44,7 @@ Beforehand one should put a fixed style image into `style_dir`. If there are > 1
 
 To evaluate the model on the group of proteins run:
   ```
-python ./2d_cnn/infer.py --checkpoint ./checkpoints  --in-path ./proteins_test --out-path ./test_res
+python ./2d_cnn/infer.py --checkpoint ./2d_cnn/checkpoints  --in-path ./proteins_test --out-path ./test_res
 ```
 ### AdaIN (Adaptive Instance Normalization) for arbitrary style images
 Train the model with generated proteins data and style images (put into 'goodsell_art' folder):
