@@ -28,7 +28,7 @@ def build_parser():
                          default='./imagenet-vgg-verydeep-19.mat')
     parser.add_argument('--checkpoint-dir', type=str,
                         dest='checkpoint_dir', help='dir to save checkpoint in',
-                         default='./chekpoints')
+                         default='./checkpoints')
 
     parser.add_argument('--style_dir', type=str,
                         dest='style_dir', help='style images path',
