@@ -25,12 +25,12 @@ The training is optimized by using:
 
 Trained on protein surfaces data, generated above and fixed style image. <br>
 Based on [[Implementation]](https://github.com/lengstrom/fast-style-transfer) <br>
-Run the following script to train the model on the generated dataset and test:
+Run the following script to train the model on the generated dataset of proteins and test on one selected protein:
 
 ```
 python ./2d_cnn/train.py \
   --train-path ./data_generation/train_pdb \
-  --style ./example/style.png \
+  --style_dir ./goodsell_art \
   --test ./example/4l6r.png \
   --test-dir ./test_res \
   --content-weight 1.5e1 \
@@ -38,8 +38,13 @@ python ./2d_cnn/train.py \
   --batch-size 24 \
   --epochs 101
   ``` 
- Add  `--shift 1` in order to calculate Gram matrices with shifted activations as suggested in [(Novak and Nikulin 2016)](https://arxiv.org/pdf/1605.04603.pdf) to elimanate sparsity and fasten convergence.
- 
+ Add  `--shift 1` in order to calculate Gram matrices with shifted activations as suggested in [(Novak and Nikulin 2016)](https://arxiv.org/pdf/1605.04603.pdf) to elimanate sparsity and fasten convergence. <br>
+Beforehand one should put a fixed style image into `style_dir`. If there are > 1 style image in the folder, multiple models will run (one per style image). <br>
+
+To evaluate the model on the group of proteins run:
+  ```
+python ./2d_cnn/infer.py --checkpoint ./checkpoints  --in-path ./proteins_test --out-path ./test_res
+```
 ### AdaIN (Adaptive Instance Normalization) for arbitrary style images
 Train the model with generated proteins data and style images (put into 'goodsell_art' folder):
 ```
