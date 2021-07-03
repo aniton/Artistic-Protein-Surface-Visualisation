@@ -30,8 +30,8 @@ def build_parser():
                         dest='checkpoint_dir', help='dir to save checkpoint in',
                          default='./chekpoints')
 
-    parser.add_argument('--style', type=str,
-                        dest='style', help='style image path',
+    parser.add_argument('--style_dir', type=str,
+                        dest='style_dir', help='style images path',
                          required=True)
 
     parser.add_argument('--train-path', type=str,
@@ -84,7 +84,7 @@ def build_parser():
 
 def check_opts(opts):
     utils.exists(opts.checkpoint_dir, "checkpoint dir not found!")
-    utils.exists(opts.style, "style path not found!")
+    utils.exists(opts.style_dir, "style path not found!")
     utils.exists(opts.train_path, "train path not found!")
     utils.exists(opts.run_path, "Model weights not found!")
     if opts.test or opts.test_dir:
@@ -173,48 +173,49 @@ def ffwd_to_img(in_path, out_path, checkpoint_dir, device='/cpu:0'):
     paths_in, paths_out = [in_path], [out_path]
     ffwd(paths_in, paths_out, checkpoint_dir, batch_size=1, device_t=device)
 
-def main():
+def run():
     parser = build_parser()
     options = parser.parse_args()
     verify(options.checkpoint_dir)
     verify(options.test_dir)
     check_opts(options)
-    style_target = utils.get_img(options.style)
+    style_targets = _get_files(options.style_dir)
     content_targets = _get_files(options.train_path)
 
+    for style in style_targets:
+        style_target = utils.get_img(style)
+        kwargs = {
+          "epochs":options.epochs,
+          "print_iterations":options.checkpoint_iterations,
+          "batch_size":options.batch_size,
+          "save_path":os.path.join(options.checkpoint_dir,'fns.ckpt'),
+          "learning_rate":options.learning_rate
+         }
+        args = [
+         options.run_path,
+         content_targets,
+         style_target,
+         options.content_weight,
+         options.style_weight,
+         options.tv_weight,
+         options.shift
+        ]
 
-    kwargs = {
-        "epochs":options.epochs,
-        "print_iterations":options.checkpoint_iterations,
-        "batch_size":options.batch_size,
-        "save_path":os.path.join(options.checkpoint_dir,'fns.ckpt'),
-        "learning_rate":options.learning_rate
-    }
-    args = [
-        options.run_path,
-        content_targets,
-        style_target,
-        options.content_weight,
-        options.style_weight,
-        options.tv_weight,
-        options.shift
-    ]
+        for preds, losses, i, epoch in tqdm(optimize.optimize(*args, **kwargs)):
+          style_loss, content_loss, tv_loss, loss = losses
 
-    for preds, losses, i, epoch in tqdm(optimize.optimize(*args, **kwargs)):
-        style_loss, content_loss, tv_loss, loss = losses
-
-        print('Epoch %d, Iteration: %d, Loss: %s' % (epoch, i, loss))
-        to_print = (style_loss, content_loss, tv_loss)
-        print('style: %s, content:%s, tv: %s' % to_print)
-        if options.test:
-            assert options.test_dir != False
-            preds_path = '%s/%s_%s.png' % (options.test_dir,epoch,i)          
-            ckpt_dir = os.path.dirname(options.checkpoint_dir)
-            ffwd_to_img(options.test,preds_path,
+          print('Epoch %d, Iteration: %d, Loss: %s' % (epoch, i, loss))
+          to_print = (style_loss, content_loss, tv_loss)
+          print('style: %s, content:%s, tv: %s' % to_print)
+          if options.test:
+              assert options.test_dir != False
+              preds_path = '%s/%s_%s_%s.png' % (options.test_dir,epoch,i, os.path.basename(style))          
+              ckpt_dir = os.path.dirname(options.checkpoint_dir)
+              ffwd_to_img(options.test,preds_path,
                                      options.checkpoint_dir)
 
-    ckpt_dir = options.checkpoint_dir
-    print("Training complete")
+        ckpt_dir = options.checkpoint_dir
+        print("Training complete")
 
 if __name__ == '__main__':
-    main()
+    run()
