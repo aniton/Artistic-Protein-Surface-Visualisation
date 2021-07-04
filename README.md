@@ -68,8 +68,8 @@ python ./2d_cyclegan/train_gan.py \
 --name pdb2good \
 --model cycle_gan \
 --batch_size 4 \
---n_epochs 30 \
---n_epochs_decay 60
+--n_epochs 10 \
+--n_epochs_decay 5
  ``` 
 One can also save our [pretrained pdb2good model](https://drive.google.com/file/d/1jcHCqAkI5xWj4GfYgkqKnUBXGh9nbHHZ/view?usp=sharing) to ./2d_cyclegan/checkpoints/pdb2good/ <br> Then it can be tested on the proteins, which in advance should be put to ./2d_cyclegan/datasets/testA:
 ```
