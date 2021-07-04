@@ -7,7 +7,7 @@ import scipy.io as sio
 from utils import get_img
 
 STYLE_LAYERS = ('relu1_1', 'relu2_1', 'relu3_1', 'relu4_1', 'relu5_1')
-CONTENT_LAYER = 'relu5_2'
+CONTENT_LAYER = 'relu4_2'
 
 def preprocess(image):
     return image - np.array([ 123.68 ,  116.779,  103.939])
