@@ -1,5 +1,6 @@
 biotite
 chainer
+imgaug==0.4.0
 scipy==1.2.2
 torch>=1.4.0
 torchvision>=0.5.0
