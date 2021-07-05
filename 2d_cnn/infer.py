@@ -10,6 +10,7 @@ import time
 import json
 import subprocess
 import numpy
+from train import verify
 from train import ffwd, ffwd_to_img
 
 def ffwd_different_dimensions(in_path, out_path, checkpoint_dir,  device_t='/gpu:0', batch_size=4):
@@ -50,7 +51,7 @@ def build_parser():
 def main():
     parser = build_parser()
     opts = parser.parse_args()
-
+    verify(opts.out_path)
     if not os.path.isdir(opts.in_path):
         if os.path.exists(opts.out_path) and os.path.isdir(opts.out_path):
             out_path = \

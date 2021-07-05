@@ -1,10 +1,19 @@
 import scipy.misc, numpy as np, os, sys
 import imageio
 from PIL import Image
+import sys
+sys.path.append('./rembg/src/rembg/')
+from bg import *
+import io
 
 def save_img(out_path, img):
     img = np.clip(img, 0, 255).astype(np.uint8)
     imageio.imwrite(out_path, img)
+    f = np.fromfile(out_path)
+    result = remove(f)
+    img = Image.open(io.BytesIO(result)).convert("RGBA")
+    img.save(out_path)
+    
 
 def scale_img(style_path, style_scale):
     scale = float(style_scale)
@@ -15,7 +24,7 @@ def scale_img(style_path, style_scale):
     return style_target
 
 def get_img(src, img_size=False):
-   img = imageio.imread(src, pilmode='RGB') # misc.imresize(, (256, 256, 3))
+   img = imageio.imread(src, pilmode='RGB') 
    if not (len(img.shape) == 3 and img.shape[2] == 3):
        img = np.dstack((img,img,img))
    if img_size != False:
