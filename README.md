@@ -46,6 +46,7 @@ To evaluate the model on the group of proteins run:
   ```
 python ./2d_cnn/infer.py --checkpoint ./2d_cnn/checkpoints/<style_image_name>.ckpt  --in-path ./proteins_test --out-path ./test_res
 ```
+One can test our [pretrained model](https://drive.google.com/file/d/1PlojX81FAqd1EZCY6yaTV2FcpE2YekaY/view?usp=sharing).
 ### AdaIN (Adaptive Instance Normalization) for arbitrary style images
 Train the model with generated proteins data and style images (put into 'goodsell_art' folder):
 ```
