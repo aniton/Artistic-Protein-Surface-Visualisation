@@ -87,7 +87,7 @@ python ./2d_cyclegan/test_gan.py \
  ### Neural 3D Mesh Renderer
  Generate a gif and a stylized image from an .obj file and style image with a set number of optimizing steps:
  ```
- python ./3d/generate_gif.py  -io ./example/1EGQ.obj -ir ./example/style_small.jpg -is 200
+ python ./3d/generate_gif.py  -io ./example/4L6R.obj -ir ./example/style_small.jpg -is 200
  ```
  Based on [[Paper]](https://arxiv.org/abs/1711.07566), [[Implementation]](https://github.com/hiroharu-kato/neural_renderer)
  ## Results
