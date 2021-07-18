@@ -98,8 +98,8 @@ python ./2d_cyclegan/test_gan.py \
 With shifted activations when computing Gram matrices: <br>
 ![Screenshot](./results/shift.png) 
  ### AdaIN
- ![Screenshot](./results/ada1.png) <br>
-  ![Screenshot](./results/ada2.png) 
+ ![Screenshot](./results/ada_1.png) <br>
+  ![Screenshot](./results/ada_2.png) 
  ### CycleGAN
  ![Screenshot](./results/gan.png) <br>
 
