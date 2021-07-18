@@ -52,7 +52,7 @@ One can test our [pretrained model](https://drive.google.com/file/d/1PlojX81FAqd
 ### AdaIN (Adaptive Instance Normalization) for arbitrary style images
 Train the model with generated proteins data and style images (put into 'goodsell_art' folder):
 ```
-python ./2d_adain/train_AdaIN.py --content_path ./data_generation/train_pdb --content_path --style_path ./goodsell_art
+python ./2d_adain/train_AdaIN.py --content_path ./data_generation/train_pdb --style_path ./goodsell_art
  ``` 
  One can also test our [pretrained model](https://drive.google.com/file/d/1m6n_rV0RBduJCUiG_nXzkLQUkmtnxd8k/view?usp=sharing) with arbitrary style images:
  ```
