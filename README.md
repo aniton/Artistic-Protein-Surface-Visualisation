@@ -101,7 +101,7 @@ With shifted activations when computing Gram matrices: <br>
  ![Screenshot](./results/ada1.png) <br>
   ![Screenshot](./results/ada2.png) 
  ### CycleGAN
- ![Screenshot](./results/gan_new.png) <br>
+ ![Screenshot](./results/gan.png) <br>
 
 ### Neural 3D Mesh Renderer
 <img src="./example/obj.gif" width="205" height="195"><img src="./example/style.png" width="240" height="160"><img src="./example/mesh22d.png" width="220" height="210">
