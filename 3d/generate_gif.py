@@ -2,6 +2,7 @@
 Based on Neural 3D Mesh Renderer https://github.com/hiroharu-kato/neural_renderer
 """
 import argparse
+import sys
 import glob
 import os
 import subprocess
@@ -10,9 +11,10 @@ import chainer
 import chainer.functions as cf
 import numpy as np
 import scipy.misc
+sys.path.append('./rembg/src/rembg/')
+from bg import *
 import tqdm
-import sys
-sys.path.append('./neural_renderer')
+sys.path.append('./3d/neural_renderer/')
 import neural_renderer
 
 
@@ -60,7 +62,12 @@ def make_gif(working_directory, filename):
     for filename in glob.glob('%s/_tmp_*.png' % working_directory):
         os.remove(filename)
 
-
+def remove_back(out_path):
+    f = np.fromfile(out_path)
+    result = remove(f)
+    img = Image.open(io.BytesIO(result)).convert("RGBA")
+    img.save(out_path)
+    
 def run():
     parser = argparse.ArgumentParser()
     parser.add_argument('-io', '--filename_obj', type=str, default='./example/4L6R.obj')
@@ -92,7 +99,8 @@ def run():
         images = model.renderer.render(model.vertices, model.faces, cf.tanh(model.textures))
         image = images.data.get()[0].transpose((1, 2, 0))
         if num == 0:
-            scipy.misc.toimage(image, cmin=0, cmax=1).save('%s/mesh22d.png' % ('./example')) # achieve 2d representation 
+            scipy.misc.toimage(image, cmin=0, cmax=1).save('%s/mesh22d.png' % ('./example')) # achieve 2d representation
+            remove_back('%s/mesh22d.png' % ('./example'))
         scipy.misc.toimage(image, cmin=0, cmax=1).save('%s/_tmp_%04d.png' % (working_directory, num))
     make_gif(working_directory, args.filename_output)
 
