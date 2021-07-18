@@ -94,7 +94,7 @@ python ./2d_cyclegan/test_gan.py \
  Based on [[Paper]](https://arxiv.org/abs/1711.07566), [[Implementation]](https://github.com/hiroharu-kato/neural_renderer)
  ## Results
  ### CNN Style Transfer
-![Screenshot](./results/cnn.png) <br>
+![Screenshot](./results/opt_cnn.png) <br>
 With shifted activations when computing Gram matrices: <br>
 ![Screenshot](./results/with_shift.png) 
  ### AdaIN
