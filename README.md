@@ -1,7 +1,7 @@
 # Artistic Protein Surface Visualisation
 ## Aim
 Transfer style of [Goodsell Art](https://ccsb.scripps.edu/goodsell/) to protein surface representations <br>
-<img src="./pipeline.jpg" width="705" height="395">
+<img src="./pipeline.jpg" width="805" height="395">
 ## Installation
 
 Execute from the directory you want the repo to be installed:
