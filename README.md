@@ -1,7 +1,7 @@
 # Artistic Protein Surface Visualisation
 ## Aim
-Transfer style of [Goodsell Art](https://ccsb.scripps.edu/goodsell/) to protein surface representations
-<img src="./pipeline.jpg" width="205" height="195">
+Transfer style of [Goodsell Art](https://ccsb.scripps.edu/goodsell/) to protein surface representations <br>
+<img src="./pipeline.jpg" width="805" height="395">
 ## Installation
 
 Execute from the directory you want the repo to be installed:
@@ -16,6 +16,7 @@ Execute in order to generate protein surfaces in .png:
 ```
 python ./data_generation/generate_surface.py --resolution 1
 ```
+One can also download [our generated dataset](https://drive.google.com/file/d/1nPvBNb4rDPI-xTspn1f_nxPoJhZq59YL/view?usp=sharing)
 ## 2D Models
 
 ### CNN Style Transfer 
