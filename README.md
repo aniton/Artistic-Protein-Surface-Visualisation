@@ -96,7 +96,7 @@ python ./2d_cyclegan/test_gan.py \
  ### CNN Style Transfer
 ![Screenshot](./results/opt_cnn.png) <br>
 With shifted activations when computing Gram matrices: <br>
-![Screenshot](./results/with_shift.png) 
+![Screenshot](./results/shift.png) 
  ### AdaIN
  ![Screenshot](./results/ada1.png) <br>
   ![Screenshot](./results/ada2.png) 
