@@ -56,7 +56,7 @@ python ./2d_adain/train_AdaIN.py --content_path ./data_generation/train_pdb --co
  ``` 
  One can also test our [pretrained model](https://drive.google.com/file/d/1m6n_rV0RBduJCUiG_nXzkLQUkmtnxd8k/view?usp=sharing) with arbitrary style images:
  ```
-python ./2d_adain/test_AdaIN.py --content_path ./proteins_test --content_path --style_path ./goodsell_art_test --weights weights.npy
+python ./2d_adain/test_AdaIN.py --content_path ./proteins_test --style_path ./goodsell_art_test --weights weights.npy
  ``` 
  
 Based on [[Paper]](https://arxiv.org/pdf/1703.06868.pdf), [[Implementation]](https://github.com/JunbinWang/Tensorflow-Style-Transfer-with-Adain).
@@ -101,7 +101,7 @@ With shifted activations when computing Gram matrices: <br>
  ![Screenshot](./results/ada1.png) <br>
   ![Screenshot](./results/ada2.png) 
  ### CycleGAN
- ![Screenshot](./results/gan_new.png) <br>
+ ![Screenshot](./results/gan.png) <br>
 
 ### Neural 3D Mesh Renderer
 <img src="./example/obj.gif" width="205" height="195"><img src="./example/style.png" width="240" height="160"><img src="./example/mesh22d.png" width="220" height="210">
