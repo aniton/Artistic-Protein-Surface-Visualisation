@@ -56,7 +56,7 @@ python ./2d_adain/train_AdaIN.py --content_path ./data_generation/train_pdb --co
  ``` 
  One can also test our [pretrained model](https://drive.google.com/file/d/1m6n_rV0RBduJCUiG_nXzkLQUkmtnxd8k/view?usp=sharing) with arbitrary style images:
  ```
-python ./2d_adain/test_AdaIN.py --content_path ./proteins_test --content_path --style_path ./goodsell_art_test --weights weights.npy
+python ./2d_adain/test_AdaIN.py --content_path ./proteins_test --style_path ./goodsell_art_test --weights weights.npy
  ``` 
  
 Based on [[Paper]](https://arxiv.org/pdf/1703.06868.pdf), [[Implementation]](https://github.com/JunbinWang/Tensorflow-Style-Transfer-with-Adain).
