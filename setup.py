@@ -15,6 +15,7 @@ class WithExternal(build_ext):
         os.system(f"wget 'http://www.vlfeat.org/matconvnet/models/beta16/imagenet-vgg-verydeep-19.mat'")
         os.system(f"wget 'https://s3-us-west-2.amazonaws.com/wengaoye/vgg19_normalised.npz'") # for AdaIN
         os.system(f"git clone 'https://github.com/danielgatis/rembg.git'") # for removing background
+        os.system(f"git clone 'https://github.com/aniton/3D_PRoteins_Params.git'") # for 3D PyMOL Stylization
         os.replace('./2d_cnn/bg.py','./rembg/src/rembg/bg.py')
         os.chdir('./3d')
         os.system(f"ghclone 'https://github.com/hiroharu-kato/neural_renderer/tree/master/neural_renderer'") # for 3d style transfer
