@@ -152,7 +152,11 @@ if tool == "3D":
                 # transfer other parameters
                 else:
                     cmd.do(f"""set {k}, {v}""")
-
+            cmd.do(
+                """ray 512, 512
+                        """
+            )
+            cmd.png("styled.png")
     # another 3D style choice
     if st.button("Geis-like"):
         col1, col2 = st.columns(2)
@@ -217,6 +221,11 @@ if tool == "3D":
                         # transfer other parameters
                         else:
                             cmd.do(f"""set {k}, {v}""")
+                    cmd.do(
+                        """ray 512, 512
+                        """
+                    )
+                    cmd.png("styled.png")
         with col2:
             if st.button("Cartoon"):
                 uploaded_file = st.file_uploader(
@@ -283,3 +292,8 @@ if tool == "3D":
                         # transfer other parameters
                         else:
                             cmd.do(f"""set {k}, {v}""")
+                    cmd.do(
+                        """ray 512, 512
+                        """
+                    )
+                    cmd.png("styled.png")
